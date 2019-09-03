@@ -1,5 +1,9 @@
 # text-transformer spec
 
+## Layout
+
+![text-transformer-layout](layouts/transformer_2.png)
+
 ## Page Load Spec
 
 1. When the page loads, the user should see three panels: __input__, __transforms__ and __output__.
