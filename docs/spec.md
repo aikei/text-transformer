@@ -36,18 +36,18 @@
 ### AES Transform Element Spec
 
 13. Given that the _transformation selection dropdown_ is open and the current element is not the `AES` transform element, when the user clicks the `AES` option in the dropdown, all old element's field not present in the `AES` element should disappear and the element should become the AES transform element.
-13. When an element is selected to be an AES transform element in the _transformation selection dropdown_, the user should see `AES` value in the _transformation selection dropdown_
-14. When an element is selected to be an AES transform element in the _transformation selection dropdown_, the user should see the bit selection dropdown
-15. When the user clicks the bit selection dropdown, the user should options `128`, `192` and `256`
-16. When an element is selected to be an AES transform element in the _transformation selection dropdown_, the user should see the block mode selection dropdown
-17. When the user clicks the block mode selection dropdown, the user should options `ecb` and `cbc`
-18. When an element is selected to be an AES transform element in the _transformation selection dropdown_, the user should see key input with a random key in base64 format
-19. When an element is selected to be an AES transform element in the _transformation selection dropdown_, the user should see iv input with a random value in base64 format
+14. When an element is selected to be an AES transform element in the _transformation selection dropdown_, the user should see `AES` value in the _transformation selection dropdown_
+15. When an element is selected to be an AES transform element in the _transformation selection dropdown_, the user should see the bit selection dropdown
+16. When the user clicks the bit selection dropdown, the user should options `128`, `192` and `256`
+17. When an element is selected to be an AES transform element in the _transformation selection dropdown_, the user should see the block mode selection dropdown
+18. When the user clicks the block mode selection dropdown, the user should options `ecb` and `cbc`
+19. When an element is selected to be an AES transform element in the _transformation selection dropdown_, the user should see key input with a random key in base64 format
+20. When an element is selected to be an AES transform element in the _transformation selection dropdown_, the user should see iv input with a random value in base64 format
 
 ## Output Panel Spec
 
-20. When the user changes text in the __input__ text area, the user should immediately see the result of transforming this text using the transforms from the __transforms panel__
-21. When the user clicks the encoding selection dropdown in the __output__ area, resulting text should be transformed into the given encoding
-22. When the user removes any transform element from the __transforms__ panel, the text in the __output__ panel text area should change too, reflecting the change in text transformation.
-23. When the user adds any transform element to the __transforms__ panel, the text in the __output__ panel text area should change too, reflecting the change in text transformation
-24. When the user changes any parameter of any transform element, such as changing the key in the `AES` transform element, the text in the __output__ panel text area should change too, reflecting the change in text transformation
+21. When the user changes text in the __input__ text area, the user should immediately see the result of transforming this text using the transforms from the __transforms panel__
+22. When the user clicks the encoding selection dropdown in the __output__ area, resulting text should be transformed into the given encoding
+23. When the user removes any transform element from the __transforms__ panel, the text in the __output__ panel text area should change too, reflecting the change in text transformation.
+24. When the user adds any transform element to the __transforms__ panel, the text in the __output__ panel text area should change too, reflecting the change in text transformation
+25. When the user changes any parameter of any transform element, such as changing the key in the `AES` transform element, the text in the __output__ panel text area should change too, reflecting the change in text transformation
