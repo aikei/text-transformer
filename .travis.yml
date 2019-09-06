@@ -16,6 +16,5 @@ cache:
     - ~/.cache
 install:
   - yarn
-  - yarn start
 script:
-  - yarn cypress run --record
+  - yarn cypress:ci

@@ -11,14 +11,16 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-scripts": "3.1.1",
-    "typescript": "3.6.2"
+    "typescript": "3.6.2",
+    "concurrently": "^4.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "cypress": "./node_modules/.bin/cypress"
+    "cypress": "./node_modules/.bin/cypress",
+    "cypress:ci": "concurrently \"cypress run\" --kill-others \"yarn start\" --success first"
   },
   "eslintConfig": {
     "extends": "react-app"
