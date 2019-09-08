@@ -1,0 +1,40 @@
+import React from "react";
+
+import { createStyles, makeStyles, withStyles, Theme } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import NativeSelect from '@material-ui/core/NativeSelect';
+import InputBase from '@material-ui/core/InputBase';
+
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    // root: {
+    //   display: 'flex',
+    //   flexWrap: 'wrap',
+    // },
+    // margin: {
+    //   margin: theme.spacing(1),
+    // },
+    transformSelectionDropdown: {
+        "width": "100%"
+    }
+  }),
+);
+
+const TransformSelectionDropdownComponent: React.FC = () => {
+
+    const classes = useStyles();
+
+    return (
+        <FormControl>
+            <InputLabel htmlFor="trs-transform-dropdown-select">Transform</InputLabel>
+            <NativeSelect className={`trs-transform-selection-dropdown ${classes.transformSelectionDropdown}`} input={<InputBase name="transform-selection" id="trs-transform-dropdown-select" />}>
+                <option value={'none'}>None</option>
+                <option value={'AES'}>AES</option>
+            </NativeSelect>
+        </FormControl>
+    )
+}
+
+export { TransformSelectionDropdownComponent }

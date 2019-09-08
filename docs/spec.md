@@ -35,10 +35,10 @@
 
 ### AES Transform Element Spec
 
-13. Given that the _transformation selection dropdown_ is open and the current element is not the `AES` transform element, when the user clicks the `AES` option in the dropdown, all old element's field not present in the `AES` element should disappear and the element should become the AES transform element.
+13. Given that the _transformation selection dropdown_ is open and the current element is not the `AES` transform element, when the user clicks the `AES` option in the dropdown, all old element's fields not present in the `AES` element should disappear and the element should become the AES transform element.
 14. When an element is selected to be an AES transform element in the _transformation selection dropdown_, the user should see `AES` value in the _transformation selection dropdown_
 15. When an element is selected to be an AES transform element in the _transformation selection dropdown_, the user should see the bit selection dropdown
-16. When the user clicks the bit selection dropdown, the user should options `128`, `192` and `256`
+16. When the user clicks the bit selection dropdown, the user should see options `128`, `192` and `256`
 17. When an element is selected to be an AES transform element in the _transformation selection dropdown_, the user should see the block mode selection dropdown
 18. When the user clicks the block mode selection dropdown, the user should options `ecb` and `cbc`
 19. When an element is selected to be an AES transform element in the _transformation selection dropdown_, the user should see key input with a random key in base64 format

@@ -1,21 +1,42 @@
 import React from "react";
 
-import Paper from '@material-ui/core/Paper';
-import Card from '@material-ui/core/Card';
 
 import "./MainScreenComponent.css"
 import { InputPanelComponent } from "../input-panel/InputPanelComponent";
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { TransformsPanelComponent } from "../transforms-panel/TransformsPanelComponent";
+import { OutputPanelComponent } from "../output-panel/OutputPanel";
+
+
+declare module '@material-ui/core/styles/createMuiTheme' {
+    interface Theme {
+      status: {
+        danger: string;
+      };
+    }
+    // allow configuration using `createMuiTheme`
+    interface ThemeOptions {
+      status?: {
+        danger?: string;
+      };
+    }
+  }
+
+const theme = createMuiTheme({
+    status: {
+        danger: 'orange',
+    }
+});
 
 const MainScreenComponent: React.FC = () => {
     return (
         <div>
-            <InputPanelComponent></InputPanelComponent>
-            <Paper className="trs-transforms-panel trs-panel">
-
-            </Paper>
-            <Paper className="trs-output-panel trs-panel">
-
-            </Paper>
+            <ThemeProvider theme={theme}>
+                <InputPanelComponent></InputPanelComponent>
+                <TransformsPanelComponent></TransformsPanelComponent>
+                <OutputPanelComponent></OutputPanelComponent>
+            </ThemeProvider>
         </div>
     );
 }

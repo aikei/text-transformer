@@ -24,7 +24,14 @@
     "cypress:ci": "concurrently \"cypress run\" --kill-others \"yarn start\" --success first"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "globals": {
+      "Cypress": true,
+      "cy": true,
+      "it": true,
+      "describe": true,
+      "context": true
+    }
   },
   "browserslist": {
     "production": [
