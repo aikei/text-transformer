@@ -30,6 +30,7 @@ const InputPanelComponentBase: React.FC<InputPanelComponentProps> = (props: Inpu
             <textarea className="trs-text-area" 
                 value={props.state.input}
                 onChange={(ev) => props.onInputReceived(ev.currentTarget.value)}>
+
             </textarea>
         </Paper>
     );

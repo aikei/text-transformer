@@ -3,11 +3,16 @@ import { TrsAction } from "./TrsAction";
 import * as _ from "lodash";
 import { Actions } from "./Actions";
 
-export function reduce(state: State|undefined, action: TrsAction) {
+export function reduce(state: State|undefined, action: TrsAction): State {
     if (!state) {
         return {
             input: "Lorem ipsum dolor sit amet",
-            output: ""
+            output: "",
+            transforms: [
+                {
+                    type: "none"
+                }
+            ]
         }
     }
     let newState = _.cloneDeep(state);
@@ -18,6 +23,11 @@ export function reduce(state: State|undefined, action: TrsAction) {
             newState.input = action.data.newInput;
         }
         break;
+
+        case Actions.TRANSFORM_ADDED:
+        {
+            newState.transforms.push(action.data.type);
+        }
     }
 
     return newState;
