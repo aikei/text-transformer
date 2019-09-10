@@ -9,7 +9,10 @@ const useStyles = makeStyles((theme: Theme) =>
         trsElement: {
             width: "200px",
             height: "100%",
-            margin: theme.spacing(1)
+            margin: theme.spacing(1),
+            padding: theme.spacing(1),
+            paddingTop: theme.spacing(2),
+            textAlign: "center"
         }
     })
 );

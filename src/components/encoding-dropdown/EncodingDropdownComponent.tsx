@@ -4,44 +4,7 @@ import { createStyles, makeStyles, withStyles, Theme } from '@material-ui/core/s
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
-import InputBase from '@material-ui/core/InputBase';
-
-const BootstrapInput = withStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      'label + &': {
-        marginTop: theme.spacing(3),
-      },
-    },
-    input: {
-      borderRadius: 4,
-      position: 'relative',
-      backgroundColor: theme.palette.background.paper,
-      border: '1px solid #ced4da',
-      fontSize: 16,
-      padding: '10px 26px 10px 12px',
-      transition: theme.transitions.create(['border-color', 'box-shadow']),
-      // Use the system font instead of the default Roboto font.
-      fontFamily: [
-        '-apple-system',
-        'BlinkMacSystemFont',
-        '"Segoe UI"',
-        'Roboto',
-        '"Helvetica Neue"',
-        'Arial',
-        'sans-serif',
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-      ].join(','),
-      '&:focus': {
-        borderRadius: 4,
-        borderColor: '#80bdff',
-        boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-      },
-    },
-  }),
-)(InputBase);
+import { BootstrapDropdown } from "../boostrap-dropdown/BootStrapDropdown";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -58,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+
 const EncodingDropdownComponent: React.FC = () => {
 
     const classes = useStyles();
@@ -65,7 +29,7 @@ const EncodingDropdownComponent: React.FC = () => {
     return (
         <FormControl className={`trs-encoding-dropdown ${classes.margin}`}>
             <InputLabel htmlFor="trs-input-dropdown-select">Encoding</InputLabel>
-            <NativeSelect className={`${classes.encodingDropdown}`} input={<BootstrapInput name="encoding" id="trs-input-dropdown-select" />}>
+            <NativeSelect className={`${classes.encodingDropdown}`} input={<BootstrapDropdown name="encoding" id="trs-input-dropdown-select" />}>
                 <option value={'utf8'}>Text</option>
                 <option value={'base64'}>Base64</option>
                 <option value={'hex'}>Hex</option>
