@@ -2,13 +2,12 @@ import React from "react";
 import Card from '@material-ui/core/Card';
 import { TransformSelectionDropdownComponent } from "../transform-selection-dropdown/TransformSelectionDropdown";
 
-import { createStyles, makeStyles, withStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { connect } from "react-redux";
 import { State } from "../../reducers/State";
-import { Actions } from "../../reducers/Actions";
 import { TransformData } from "../../reducers/Transforms";
 import { AddTransformElementButtonComponent } from "../add-transform-element-button/AddTransformElementButton";
-import { Box, GridList, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) => 
     createStyles({

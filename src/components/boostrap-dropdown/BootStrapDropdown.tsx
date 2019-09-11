@@ -1,4 +1,4 @@
-import { createStyles, makeStyles, withStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, withStyles, Theme } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
 
 const BootstrapDropdown = withStyles((theme: Theme) =>

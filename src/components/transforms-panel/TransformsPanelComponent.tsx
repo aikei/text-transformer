@@ -1,6 +1,5 @@
 import React from "react";
 import Paper from '@material-ui/core/Paper';
-import Card from '@material-ui/core/Card';
 import { TransformElementComponent } from "../transform-element/TransformElementComponent";
 import { makeStyles, Theme } from "@material-ui/core";
 

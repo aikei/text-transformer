@@ -1,7 +1,6 @@
 import React from "react";
 
-import { createStyles, makeStyles, withStyles, Theme } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import { BootstrapDropdown } from "../boostrap-dropdown/BootStrapDropdown";

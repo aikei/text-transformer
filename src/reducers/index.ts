@@ -19,15 +19,12 @@ export function reduce(state: State|undefined, action: TrsAction): State {
 
     switch (action.type) {
         case Actions.INPUT_RECEIVED:
-        {
             newState.input = action.data.newInput;
-        }
-        break;
+            break;
 
         case Actions.TRANSFORM_ADDED:
-        {
             newState.transforms.push(action.data.type);
-        }
+            break;
     }
 
     return newState;
