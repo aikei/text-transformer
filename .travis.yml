@@ -15,7 +15,6 @@ install:
 script:
 - yarn cypress:ci
 before_deploy:
-- rm -rf cypress/videos
 - yarn build
 - ls build
 deploy:
