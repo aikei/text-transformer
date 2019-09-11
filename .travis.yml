@@ -14,11 +14,11 @@ install:
 - yarn
 script:
 - yarn cypress:ci
-before_deploy:
-- rm -rf cypress/videos
-- yarn build
 deploy:
   provider: firebase
+  script:
+  - rm -rf cypress/videos
+  - yarn build
   token:
     secure: jB8byfSs2di5F9gcRF2gxGZJP4a4cGFUGF0OgOed5P3d65w91sW5ITYY4RkEOfSsM8hRgNrOHaI32IUbEjnrL2IKHCx/MxUyr+UnV/YqM+EQvf2UwaQaLmYiqmYxye5Aed+0G1c11NIPARZFWYX8DZRPyJY5iJJx1DMZu86+kVYG3v3jojndibUjyopk987NqzT2H+FY2rgOogcTCQykNqBmGlBCDnJWi7Wx6VbxP4xmwOIzNZ+jDe2NZw5+34eKOFLZeKV1HnrFNGiyMwiFfFg36DZMfaPMD+6ct27ZtnY2kXUXF89oRb+/hlE1I+u4EtDcZUNkvyieyw617ItD18lvjceTNisgehla0Rd+w720639ep4HEIBmnVa0KylddFbEwttXhxd0+EUF7745oCkfW9MVMCGpmktlSiKWzzp2g87OuLAV4//U3oxyF19GxZojPinm0tHn4lQeMwaKY/XIYZft6Z5ttSqQmDyeqBx8KYyivJMm2wmXaT5jxzoxyOF1wh2b5l10nJTh+3V0UvrbULFjnTa+tH23D6Ku0n4X1Y3HnB5clOL5T3mAsa/DsvFHaIQJtKiP5VJhYyEPof2nR6y2txdCOF3kRhHil/LV9lhOqeYo0SvMdfbVUm3ymvyq1CTUGxXfe1Gn4VWDgVEvbXy1qbwmCp3dbwD3J68g=
 env:
