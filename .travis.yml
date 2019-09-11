@@ -16,7 +16,6 @@ script:
 - yarn cypress:ci
 before_deploy:
 - yarn build
-- mv build public
 deploy:
   provider: firebase
   token:
