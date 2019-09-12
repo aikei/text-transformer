@@ -6,8 +6,9 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { connect } from "react-redux";
 import { State } from "../../reducers/State";
 import { TransformData } from "../../reducers/Transforms";
-import { AddTransformElementButtonComponent } from "../add-transform-element-button/AddTransformElementButton";
-import { Grid } from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
+import Fab from '@material-ui/core/Fab';
+import { Actions } from "../../reducers/Actions";
 
 const useStyles = makeStyles((theme: Theme) => 
     createStyles({
@@ -19,30 +20,41 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingTop: theme.spacing(2),
             textAlign: "center"
         },
-        grid: {
+        closeButtonContainer: {
+            display: "flex",
+            width: "100%"
+        },
+        closeButton: {
+            justifySelf: "flex-end"
+        },
+        mainElementArea: {
             height: "75%"
         }
     })
 );
 
 interface TransformElementComponentProps {
-    state: State
+    state: State,
+    transformData: TransformData,
+    removeTransform: (transformId: number) => void
 }
 
 
 const TransformElementComponentBase: React.FC<TransformElementComponentProps> = (props: TransformElementComponentProps) => {
 
     const classes = useStyles();
-    
+
     return (
-        <Grid wrap="nowrap" alignItems="center" container direction="row" className={`${classes.grid}`}>
-            {props.state.transforms.map((transformData: TransformData) =>
-                <Card className={`trs-transforms-element ${classes.trsElement}`}>
-                    <TransformSelectionDropdownComponent></TransformSelectionDropdownComponent>
-                </Card>
-            )}
-            <AddTransformElementButtonComponent></AddTransformElementButtonComponent>
-        </Grid>
+        <Card className={`trs-transforms-element ${classes.trsElement}`}>
+            <div className={classes.mainElementArea}>
+                <TransformSelectionDropdownComponent></TransformSelectionDropdownComponent>
+            </div>
+            <Fab color="secondary" aria-label="remove-element"
+                onClick={() => props.removeTransform(props.transformData.id)}
+                className={`trs-remove-element-transform-button ${classes.closeButton}`} >
+                <CloseIcon />
+            </Fab>
+        </Card>
     )
 }
 
@@ -54,7 +66,14 @@ function mapStateToProps(state: State) {
 
 function mapDispatchToProps(dispatch: Function) {
     return {
-
+        removeTransform(transformId: number) {
+            dispatch({
+                type: Actions.REMOVE_TRANSFORM,
+                data: {
+                    transformId 
+                }
+            })
+        }
     }
 }
 

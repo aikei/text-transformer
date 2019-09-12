@@ -8,9 +8,11 @@ export function reduce(state: State|undefined, action: TrsAction): State {
         return {
             input: "Lorem ipsum dolor sit amet",
             output: "",
+            newTransformId: 11,
             transforms: [
                 {
-                    type: "none"
+                    type: "none",
+                    id: 10
                 }
             ]
         }
@@ -23,7 +25,14 @@ export function reduce(state: State|undefined, action: TrsAction): State {
             break;
 
         case Actions.TRANSFORM_ADDED:
-            newState.transforms.push(action.data.type);
+            newState.transforms.push({
+                type: action.data.type,
+                id: newState.newTransformId++
+            });
+            break;
+
+        case Actions.REMOVE_TRANSFORM:
+            newState.transforms = newState.transforms.filter(transformData => transformData.id !== action.data.transformId);
             break;
     }
 

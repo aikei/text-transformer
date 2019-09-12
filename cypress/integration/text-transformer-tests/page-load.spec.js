@@ -31,9 +31,22 @@ context("Page Load", () => {
         cy.get(".trs-output-panel .trs-text-area").should("be.visible");        
     });
 
+    it("5. There should be three options in the encoding dropdown: `Text`, `Hex` and `Base64`", () => {
+        cy.get(".trs-input-panel .trs-encoding-dropdown option[value='utf8']").should("exist");
+        cy.get(".trs-input-panel .trs-encoding-dropdown option[value='base64']").should("exist");
+        cy.get(".trs-input-panel .trs-encoding-dropdown option[value='hex']").should("exist");
+    });
+
     it("8. When the user clicks the plus button in the __transforms__ panel, an Empty Transform Element should appear in its place, and the plus button should move to the right.", () => {
         cy.get(`.trs-transforms-panel .trs-add-transform-button`).click();
         cy.get(".trs-transforms-panel .trs-transforms-element").should("have.length", 2);
+    });
+
+    it("9. When the user clicks the cross button at the top right of any of the __transforms__ panel elements, that element should be removed and the plus button should move to the left.", () => {
+        cy.get(`.trs-transforms-panel .trs-add-transform-button`).click();
+        cy.get(".trs-transforms-panel .trs-transforms-element").should("have.length", 2);
+        cy.get(".trs-transforms-panel .trs-transforms-element").eq(1).find(".trs-remove-element-transform-button").click();
+        cy.get(".trs-transforms-panel .trs-transforms-element").should("have.length", 1);
     });
 
 });
