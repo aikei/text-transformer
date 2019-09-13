@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) => {
     return {
         panelHeader: theme.panelHeader,
         grid: {
-            height: "75%"
+            height: "85%"
         }
     }
 });
@@ -34,7 +34,7 @@ const TransformsPanelComponentBase: React.FC<TransformsPanelComponentProps> = (p
             </div>
             <Grid wrap="nowrap" alignItems="center" container direction="row" className={`${classes.grid}`}>
                 {props.state.transforms.map((transformData: TransformData) =>
-                    <TransformElementComponent transformData={transformData}></TransformElementComponent>
+                    <TransformElementComponent key={transformData.id} transformData={transformData}></TransformElementComponent>
                 )}
                 <AddTransformElementButtonComponent></AddTransformElementButtonComponent>
             </Grid>

@@ -1,4 +1,4 @@
-export type TransformType = "none"|"aes";
+export type TransformType = "none"|"aes-encrypt"|"aes-decrypt";
 
 export interface TransformData {
     type: TransformType;

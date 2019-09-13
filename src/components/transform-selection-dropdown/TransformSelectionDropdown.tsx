@@ -16,16 +16,24 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const TransformSelectionDropdownComponent: React.FC = () => {
+interface TransformSelectionDropdownProps {
+    onChange: (value: string) => void;
+}
+
+const TransformSelectionDropdownComponent: React.FC<TransformSelectionDropdownProps> = (props: TransformSelectionDropdownProps) => {
 
     const classes = useStyles();
 
     return (
         <FormControl className={`${classes.formControl}`}>
             {/* <InputLabel htmlFor="trs-transform-dropdown-select">Transform</InputLabel> */}
-            <NativeSelect className={`trs-transform-selection-dropdown ${classes.transformSelectionDropdown}`} input={<BootstrapDropdown name="transform-selection" id="trs-transform-dropdown-select" />}>
+            <NativeSelect 
+                onChange={(event) => props.onChange(event.target.value) }
+                className={`trs-transform-selection-dropdown ${classes.transformSelectionDropdown}`} 
+                input={<BootstrapDropdown name="transform-selection" id="trs-transform-dropdown-select" />}>
                 <option value={'none'}>None</option>
-                <option value={'AES'}>AES</option>
+                <option value={'aes-encrypt'}>AES Encrypt</option>
+                <option value={'aes-decrypt'}>AES Decrypt</option>
             </NativeSelect>
         </FormControl>
     )

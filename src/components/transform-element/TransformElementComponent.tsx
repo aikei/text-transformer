@@ -7,8 +7,9 @@ import { connect } from "react-redux";
 import { State } from "../../reducers/State";
 import { TransformData } from "../../reducers/Transforms";
 import CloseIcon from "@material-ui/icons/Close";
-import Fab from '@material-ui/core/Fab';
 import { Actions } from "../../reducers/Actions";
+import { IconButton } from "@material-ui/core";
+import { AesEncryptionOptionsComponent } from "./AesEncryptionOptions";
 
 const useStyles = makeStyles((theme: Theme) => 
     createStyles({
@@ -22,13 +23,14 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         closeButtonContainer: {
             display: "flex",
+            flexDirection: "row-reverse",
             width: "100%"
         },
         closeButton: {
             justifySelf: "flex-end"
         },
         mainElementArea: {
-            height: "75%"
+            height: "85%"
         }
     })
 );
@@ -37,6 +39,7 @@ interface TransformElementComponentProps {
     state: State,
     transformData: TransformData,
     removeTransform: (transformId: number) => void
+    changeTransformType: (transformId: number, newType: string) => void;
 }
 
 
@@ -44,16 +47,24 @@ const TransformElementComponentBase: React.FC<TransformElementComponentProps> = 
 
     const classes = useStyles();
 
+    let options = null;
+
+    switch(props.transformData.type) {
+        case "aes-encrypt":
+            options = (<AesEncryptionOptionsComponent />);
+            break;
+    }
+    
     return (
         <Card className={`trs-transforms-element ${classes.trsElement}`}>
             <div className={classes.mainElementArea}>
-                <TransformSelectionDropdownComponent></TransformSelectionDropdownComponent>
+                <TransformSelectionDropdownComponent onChange={(value: string) => props.changeTransformType(props.transformData.id, value) }></TransformSelectionDropdownComponent>
+                {options}
             </div>
-            <Fab color="secondary" aria-label="remove-element"
-                onClick={() => props.removeTransform(props.transformData.id)}
-                className={`trs-remove-element-transform-button ${classes.closeButton}`} >
-                <CloseIcon />
-            </Fab>
+
+            <IconButton onClick={() => props.removeTransform(props.transformData.id)} className={`trs-remove-element-transform-button`}>
+                <CloseIcon fontSize="small"/>
+            </IconButton>
         </Card>
     )
 }
@@ -71,6 +82,15 @@ function mapDispatchToProps(dispatch: Function) {
                 type: Actions.REMOVE_TRANSFORM,
                 data: {
                     transformId 
+                }
+            })
+        },
+        changeTransformType(transformId: number, newType: string) {
+            dispatch({
+                type: Actions.CHANGE_TRANSFORM_TYPE,
+                data: {
+                    transformId,
+                    newType
                 }
             })
         }

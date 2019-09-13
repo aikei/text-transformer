@@ -49,4 +49,30 @@ context("Page Load", () => {
         cy.get(".trs-transforms-panel .trs-transforms-element").should("have.length", 1);
     });
 
+    it("10. When any __transforms__ panel element is created, the users should see a _transformation selection dropdown_ on top showing which transformation this element represents.", () => {
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-transform-selection-dropdown").should("be.visible");
+    });
+
+    it("11. When the user clicks the _transformation selection dropdown_, they should see the following options: `AES`, `None`", () => {
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-transform-selection-dropdown option[value='none']")
+            .should("exist");
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-transform-selection-dropdown option[value='aes-encrypt']")
+            .should("exist");
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-transform-selection-dropdown option[value='aes-decrypt']")
+            .should("exist");
+    });
+
+    it("13. Given that the _transformation selection dropdown_ is open and the current element is not the `AES Encrypt` transform element, when the user clicks the `AES Encrypt` option in the dropdown, all old element's field not present in the `AES Encrypt` element should disappear and the element should become the `AES Encrypt` transform element.", () => {
+        cy.get(".trs-transforms-panel .trs-transforms-element select")
+            .select("aes-encrypt");
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-key-input")
+            .should("be.visible");
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-iv-input")
+            .should("be.visible");
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-bits-input")
+            .should("be.visible");
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-variation-input")
+            .should("exist");
+    });
+
 });
