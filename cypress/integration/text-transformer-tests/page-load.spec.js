@@ -73,6 +73,31 @@ context("Page Load", () => {
             .should("be.visible");
         cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-variation-input")
             .should("exist");
+
+        // cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-variation-input options[value='ecb']")
+        //     .should("exist");
+        // cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-variation-input options[value='cbc']")
+        //     .should("exist");
     });
 
+    it("16. When the user clicks the bit selection dropdown in the `AES` transform element, the user should options `128`, `192` and `256`", () => {
+        cy.get(".trs-transforms-panel .trs-transforms-element select")
+            .select("aes-encrypt");
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-bits-input option[value='128']")
+            .should("exist");
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-bits-input option[value='192']")
+            .should("exist");
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-bits-input option[value='256']")
+            .should("exist"); 
+    });
+
+    it("18. When the user clicks the block mode selection dropdown in the `AES` transform element, the user should see options `ecb` and `cbc`", () => {
+        cy.get(".trs-transforms-panel .trs-transforms-element select")
+            .select("aes-encrypt");
+
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-variation-input option[value='ecb']")
+            .should("exist");
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-variation-input option[value='cbc']")
+            .should("exist");
+    });
 });

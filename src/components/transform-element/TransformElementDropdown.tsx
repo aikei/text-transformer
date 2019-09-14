@@ -1,7 +1,7 @@
 import { createStyles, withStyles, Theme } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
 
-const BootstrapDropdown = withStyles((theme: Theme) =>
+const TransformElementDropdown = withStyles((theme: Theme) =>
   createStyles({
     // root: {
     //   'label + &': {
@@ -9,6 +9,7 @@ const BootstrapDropdown = withStyles((theme: Theme) =>
     //   },
     // },
     input: {
+      width: "100%",
       borderRadius: 4,
       position: 'relative',
       backgroundColor: theme.palette.background.paper,
@@ -38,4 +39,4 @@ const BootstrapDropdown = withStyles((theme: Theme) =>
   }),
 )(InputBase);
 
-export { BootstrapDropdown };
+export { TransformElementDropdown };

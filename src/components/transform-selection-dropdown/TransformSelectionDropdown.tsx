@@ -8,10 +8,11 @@ import { BootstrapDropdown } from "../boostrap-dropdown/BootStrapDropdown";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     formControl: {
-        "width": "100%"
+        width: "100%",
+        marginBottom: "3px"
     },
     transformSelectionDropdown: {
-        "width": "100%"
+        width: "100%"
     }
   }),
 );

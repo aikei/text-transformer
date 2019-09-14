@@ -21,10 +21,20 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+const useDropdownStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      'label + &': {
+        marginTop: theme.spacing(3),
+      },
+    },
+  })
+);
 
 const EncodingDropdownComponent: React.FC = () => {
 
     const classes = useStyles();
+    const dropdownClasses = useDropdownStyles();
 
     return (
         <FormControl className={`trs-encoding-dropdown ${classes.margin}`}>
