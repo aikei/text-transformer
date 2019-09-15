@@ -21,15 +21,15 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const useDropdownStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      'label + &': {
-        marginTop: theme.spacing(3),
-      },
-    },
-  })
-);
+// const useDropdownStyles = makeStyles((theme: Theme) =>
+//   createStyles({
+//     root: {
+//       'label + &': {
+//         marginTop: theme.spacing(3),
+//       },
+//     },
+//   })
+// );
 
 const EncodingDropdownComponent: React.FC = () => {
 
