@@ -4,7 +4,6 @@ import { State } from "../../reducers/State";
 import TextField from '@material-ui/core/TextField';
 import { makeStyles, createStyles } from "@material-ui/styles";
 import { Theme, InputLabel, FormControl, NativeSelect } from "@material-ui/core";
-import { TransformElementDropdown } from "./TransformElementDropdown";
 import { BootstrapDropdown } from "../boostrap-dropdown/BootStrapDropdown";
 
 interface AesEncryptionOptionsComponentProps {
