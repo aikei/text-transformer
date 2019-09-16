@@ -8,6 +8,11 @@ const BootstrapDropdown = withStyles((theme: Theme) =>
     //     marginTop: theme.spacing(3),
     //   },
     // },
+    root: {
+      label: {
+        top: "-5px"
+      }
+    },
     input: {
       borderRadius: 4,
       position: 'relative',

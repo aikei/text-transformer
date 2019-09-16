@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme: Theme) => {
 interface InputPanelComponentProps {
     state: State,
     onInputReceived: (newInput: string) => void;
+    onEncodingChange: (newEncoding: string) => void;
 }
 
 const InputPanelComponentBase: React.FC<InputPanelComponentProps> = (props: InputPanelComponentProps) => {
@@ -26,7 +27,7 @@ const InputPanelComponentBase: React.FC<InputPanelComponentProps> = (props: Inpu
             <div className={`${classes.panelHeader}`}>
                 <b>Input</b>
             </div>
-            <EncodingDropdownComponent></EncodingDropdownComponent>
+            <EncodingDropdownComponent value={props.state.inputEncoding} onChange={(value: string) => props.onEncodingChange(value) }></EncodingDropdownComponent>
             <textarea className="trs-text-area" 
                 value={props.state.input}
                 onChange={(ev) => props.onInputReceived(ev.currentTarget.value)}>
@@ -49,6 +50,14 @@ function mapDispatchToProps(dispatch: Function) {
                 type: Actions.INPUT_RECEIVED,
                 data: {
                     newInput
+                }
+            });
+        },
+        onEncodingChange: (newEncoding: string) => {
+            dispatch({
+                type: Actions.INPUT_ENCODING_CHANGED,
+                data: {
+                    newEncoding
                 }
             });
         }

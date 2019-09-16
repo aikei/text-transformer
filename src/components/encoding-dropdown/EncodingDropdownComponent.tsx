@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     encodingDropdown: {
         "max-width": "100px"
+    },
+    label: {
+      // top: "-5px"
     }
   }),
 );
@@ -31,15 +34,23 @@ const useStyles = makeStyles((theme: Theme) =>
 //   })
 // );
 
-const EncodingDropdownComponent: React.FC = () => {
+interface EncodingDropdownProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+const EncodingDropdownComponent: React.FC<EncodingDropdownProps> = (props: EncodingDropdownProps) => {
 
     const classes = useStyles();
     // const dropdownClasses = useDropdownStyles();
 
     return (
         <FormControl className={`trs-encoding-dropdown ${classes.margin}`}>
-            <InputLabel htmlFor="trs-input-dropdown-select">Encoding</InputLabel>
-            <NativeSelect className={`${classes.encodingDropdown}`} input={<BootstrapDropdown name="encoding" id="trs-input-dropdown-select" />}>
+            <InputLabel className={classes.label} htmlFor="trs-input-dropdown-select">Encoding</InputLabel>
+            <NativeSelect 
+              onChange={(ev) => props.onChange(ev.target.value)}
+              className={`${classes.encodingDropdown}`} 
+              input={<BootstrapDropdown value={props.value} name="encoding" id="trs-input-dropdown-select" />}>
                 <option value={'utf8'}>Text</option>
                 <option value={'base64'}>Base64</option>
                 <option value={'hex'}>Hex</option>

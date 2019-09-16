@@ -3,6 +3,7 @@ import { TrsAction } from "./TrsAction";
 import * as _ from "lodash";
 import { Actions } from "./Actions";
 import { TransformData } from "./Transforms";
+import { encode } from "../encoders/encode";
 
 export function reduce(state: State|undefined, action: TrsAction): State {
 
@@ -11,7 +12,9 @@ export function reduce(state: State|undefined, action: TrsAction): State {
     if (!state) {
         return {
             input: "Lorem ipsum dolor sit amet",
-            output: "",
+            inputEncoding: "utf8",
+            output: "Lorem ipsum dolor sit amet",
+            outputEncoding: "utf8",
             newTransformId: 11,
             transforms: [
                 {
@@ -24,8 +27,19 @@ export function reduce(state: State|undefined, action: TrsAction): State {
     let newState = _.cloneDeep(state);
 
     switch (action.type) {
+
+        case Actions.INPUT_ENCODING_CHANGED:
+            newState.inputEncoding = action.data.newEncoding;
+            break;
+            
+        case Actions.OUTPUT_ENCODING_CHANGED:
+            newState.outputEncoding = action.data.newEncoding;
+            break;
+
         case Actions.INPUT_RECEIVED:
             newState.input = action.data.newInput;
+            const encodedData = encode(action.data.newInput, newState.inputEncoding, _.cloneDeep(newState.transforms));
+            newState.output = encodedData.toString(newState.outputEncoding);
             break;
 
         case Actions.TRANSFORM_ADDED:

@@ -100,4 +100,14 @@ context("Page Load", () => {
         cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-variation-input option[value='cbc']")
             .should("exist");
     });
+
+    it("26. When the page loads, user should see the same text in the output text area as in the input text area", () => {
+        cy.get(".trs-input-panel .trs-text-area").should("have.text", "Lorem ipsum dolor sit amet");
+        cy.get(".trs-output-panel .trs-text-area").should("have.text", "Lorem ipsum dolor sit amet");
+    });
+
+    it("21. When the user changes text in the __input__ text area, the user should immediately see the result of transforming this text using the transforms from the __transforms panel__", () => {
+        cy.get(".trs-input-panel .trs-text-area").type(", consectetur adipiscing elit");
+        cy.get(".trs-output-panel .trs-text-area").should("have.text", "Lorem ipsum dolor sit amet, consectetur adipiscing elit");
+    });
 });
