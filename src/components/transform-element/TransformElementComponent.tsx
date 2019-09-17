@@ -53,7 +53,7 @@ const TransformElementComponentBase: React.FC<TransformElementComponentProps> = 
 
     switch(props.transformData.type) {
         case "aes-encrypt":
-            options = (<AesEncryptionOptionsComponent />);
+            options = (<AesEncryptionOptionsComponent transformData={props.transformData} />);
             break;
     }
     
