@@ -2,7 +2,7 @@ import { State } from "./State";
 import { TrsAction } from "./TrsAction";
 import * as _ from "lodash";
 import { Actions } from "./Actions";
-import { TransformData } from "./Transforms";
+import { TransformData, TransformPreferences } from "./Transforms";
 import { encode } from "../encoders/encode";
 import { AesEncryptionOptions } from "../encoders/aes-encrypt-encoder";
 import * as crypto from "crypto";
@@ -84,9 +84,10 @@ export function reduce(state: State|undefined, action: TrsAction): State {
                             console.log("transformData.options:", options);
                             break;
                     }
+                    newState.outputEncoding = TransformPreferences[transform.type].defaultEncoding;
                     newState.output = 
-                    encode(newState.input, newState.inputEncoding, _.cloneDeep(newState.transforms))
-                        .toString(newState.outputEncoding);
+                        encode(newState.input, newState.inputEncoding, _.cloneDeep(newState.transforms))
+                            .toString(newState.outputEncoding);
                 } else {
                     console.error("Tried to change type of an unexistant transform: " + JSON.stringify(action));
                 }
@@ -97,10 +98,17 @@ export function reduce(state: State|undefined, action: TrsAction): State {
                 const transform = newState.transforms.find((value: TransformData) => value.id === action.data.transformId);
                 if (transform) {
                     transform.options[action.data.prop] = action.data.newValue;
+                    if (action.data.prop === "bits") {
+                        const keyLength = Number(transform.options.bits) / 8;
+                        transform.options.key = crypto.randomBytes(keyLength).toString("base64");
+                        // transform.options.iv = crypto.randomBytes(keyLength).toString("base64");
+                    }
+                    newState.output = 
+                        encode(newState.input, newState.inputEncoding, _.cloneDeep(newState.transforms))
+                            .toString(newState.outputEncoding);
+                } else {
+                    throw new Error(`No transform with id ${action.data.transformId}`)
                 }
-                newState.output = 
-                    encode(newState.input, newState.inputEncoding, _.cloneDeep(newState.transforms))
-                        .toString(newState.outputEncoding);
             }
             break;
         }

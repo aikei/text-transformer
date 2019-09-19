@@ -8,7 +8,7 @@ import { State } from "../../reducers/State";
 import { TransformData } from "../../reducers/Transforms";
 import CloseIcon from "@material-ui/icons/Close";
 import { Actions } from "../../reducers/Actions";
-import { IconButton } from "@material-ui/core";
+// import { IconButton } from "@material-ui/core";
 import { AesEncryptionOptionsComponent } from "./AesEncryptionOptions";
 
 
@@ -55,6 +55,7 @@ const TransformElementComponentBase: React.FC<TransformElementComponentProps> = 
 
     switch(props.transformData.type) {
         case "aes-encrypt":
+        case "aes-decrypt":
             options = (<AesEncryptionOptionsComponent transformData={props.transformData} />);
             break;
     }

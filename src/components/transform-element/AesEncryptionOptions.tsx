@@ -72,7 +72,7 @@ const AesEncryptionOptionsComponentBase: React.FC<AesEncryptionOptionsComponentP
                 variant="outlined"
             />
             <FormControl margin="none" className={`${classes.formControl} ${classes.element} trs-aes-encrypt-bits-input`}>
-                <InputLabel htmlFor="trs-aes-options-bits">Bits</InputLabel>
+                <InputLabel htmlFor="trs-aes-options-bits">Key Length</InputLabel>
                 <NativeSelect className={`${classes.select}`}
                     value={props.transformData.options.bits}
                     onChange={(ev) => props.changeOptionsProperty(props.transformData.id, "bits", ev.target.value)}
@@ -84,7 +84,7 @@ const AesEncryptionOptionsComponentBase: React.FC<AesEncryptionOptionsComponentP
             </FormControl>
 
             <FormControl margin="none" className={`${classes.formControl} ${classes.element} trs-aes-encrypt-variation-input`}>
-                <InputLabel htmlFor="trs-aes-options-variation">Variation</InputLabel>
+                <InputLabel htmlFor="trs-aes-options-variation">Mode</InputLabel>
                 <NativeSelect 
                     onChange={(ev) => props.changeOptionsProperty(props.transformData.id, "variation", ev.target.value)}
                     value={props.transformData.options.variation}
@@ -94,31 +94,6 @@ const AesEncryptionOptionsComponentBase: React.FC<AesEncryptionOptionsComponentP
                     <option value={'ecb'}>ecb</option>
                 </NativeSelect>
             </FormControl>
-
-            {/* <TextField
-                id="trs-aes-options-bits"
-                className="trs-aes-encrypt-bits-input"
-                label="Bits"
-                inputProps={{className: classes.input}}
-                InputLabelProps={{ classes: labelClasses }}
-                // className={classes.textField}
-                // value={values.name}
-                // onChange={handleChange('name')}
-                margin="dense"
-                variant="outlined"
-            />
-            <TextField
-                id="trs-aes-options-variation"
-                className="trs-aes-encrypt-variation-input"
-                label="Variation"
-                inputProps={{className: classes.input}}
-                InputLabelProps={{ classes: labelClasses }}
-                // className={classes.textField}
-                // value={values.name}
-                // onChange={handleChange('name')}
-                margin="dense"
-                variant="outlined"
-            /> */}
         </div>
     )
 }

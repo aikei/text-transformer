@@ -1,7 +1,6 @@
 import "buffer";
 import { TransformData } from "../reducers/Transforms";
 import * as crypto from "crypto";
-import "buffer";
 
 export interface AesEncryptionOptions {
     key: string;
