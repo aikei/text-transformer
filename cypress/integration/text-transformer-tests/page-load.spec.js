@@ -106,6 +106,18 @@ context("Page Load", () => {
         cy.get(".trs-output-panel .trs-text-area").should("have.text", "Lorem ipsum dolor sit amet");
     });
 
+    it("19. When an element is selected to be an AES transform element in the _transformation selection dropdown_, the user should see key input with a random key in base64 format", () => {        
+        cy.get(".trs-transforms-panel .trs-transforms-element select")
+            .select("aes-encrypt");
+        cy.get("#trs-aes-options-key").should("not.have.value", "");
+    });
+
+    it("20. When an element is selected to be an AES transform element in the _transformation selection dropdown_, the user should see iv input with a random value in base64 format", () => {        
+        cy.get(".trs-transforms-panel .trs-transforms-element select")
+            .select("aes-encrypt");
+        cy.get("#trs-aes-options-iv").should("not.have.value", "");
+    });
+
     it("21. When the user changes text in the __input__ text area, the user should immediately see the result of transforming this text using the transforms from the __transforms panel__", () => {
         cy.get(".trs-input-panel .trs-text-area").type(", consectetur adipiscing elit");
         cy.get(".trs-output-panel .trs-text-area").should("have.text", "Lorem ipsum dolor sit amet, consectetur adipiscing elit");

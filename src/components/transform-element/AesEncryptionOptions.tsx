@@ -25,6 +25,8 @@ const useStyle = makeStyles({
         width: "100%"
     },
     element: {
+        margin: "3%",
+        width: "94%",
         marginTop: "3px",
         marginBottom: "3px",
     }

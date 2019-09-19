@@ -8,7 +8,10 @@ import { Actions } from "../../reducers/Actions";
 
 const useStyles = makeStyles((theme: Theme) => {
     return {
-        panelHeader: theme.panelHeader
+        panelHeader: theme.panelHeader,
+        panel: {
+            height: "25vh"
+        }
     }
 });
 
@@ -23,7 +26,7 @@ const InputPanelComponentBase: React.FC<InputPanelComponentProps> = (props: Inpu
     const classes = useStyles();
 
     return (
-        <Paper className="trs-input-panel trs-panel">
+        <Paper className={`${classes.panel} trs-input-panel trs-panel`}>
             <div className={`${classes.panelHeader}`}>
                 <b>Input</b>
             </div>

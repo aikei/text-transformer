@@ -5,10 +5,21 @@ import { makeStyles, Theme } from "@material-ui/core";
 import { connect } from "react-redux";
 import { State } from "../../reducers/State";
 import { Actions } from "../../reducers/Actions";
+import { ErrorMessageComponent } from "./ErrorMessageComponent";
 
 const useStyles = makeStyles((theme: Theme) => {
     return {
-        panelHeader: theme.panelHeader
+        panelHeader: theme.panelHeader,
+        panel: {
+            height: "25vh"
+        },
+        mainContents: {
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            paddingTop: "0px"
+        }
     }
 });
 
@@ -21,13 +32,22 @@ const OutputPanelComponentBase: React.FC<OutputPanelComponentProps> = (props: Ou
 
     const classes = useStyles();
 
-    return (
-        <Paper className="trs-transforms-panel trs-panel trs-output-panel">
+    let contents = (
+        <div className={`${classes.mainContents}`}>
             <div className={`${classes.panelHeader}`}>
                 <b>Output</b>
             </div>
             <EncodingDropdownComponent value={props.state.outputEncoding} onChange={(value: string) => props.onEncodingChange(value)} ></EncodingDropdownComponent>
             <textarea value={props.state.output} className="trs-text-area"></textarea>
+        </div>)
+
+    if (props.state.outputError) {
+        contents = (<ErrorMessageComponent></ErrorMessageComponent>);
+    }
+
+    return (
+        <Paper className={`${classes.panel} trs-transforms-panel trs-panel trs-output-panel`}>
+            {contents}
         </Paper>
     )
 }

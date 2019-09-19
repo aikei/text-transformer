@@ -19,8 +19,8 @@ const useStyles = makeStyles((theme: Theme) =>
             width: "200px",
             height: "100%",
             margin: theme.spacing(1),
-            padding: theme.spacing(1),
-            paddingTop: theme.spacing(2),
+            // padding: theme.spacing(1),
+            // paddingTop: theme.spacing(2),
             textAlign: "center"
         },
         closeButtonContainer: {
@@ -29,11 +29,13 @@ const useStyles = makeStyles((theme: Theme) =>
             width: "100%"
         },
         closeButton: {
-            justifySelf: "flex-end"
+            float: "right",
+            margin: "4px",
+            cursor: "pointer"
         },
         mainElementArea: {
             height: "85%"
-        }
+        },
     })
 );
 
@@ -60,13 +62,13 @@ const TransformElementComponentBase: React.FC<TransformElementComponentProps> = 
     return (
         <Card className={`trs-transforms-element ${classes.trsElement}`}>
             <div className={classes.mainElementArea}>
+                <CloseIcon className={`${classes.closeButton} trs-remove-element-transform-button`} fontSize="small" onClick={() => props.removeTransform(props.transformData.id)}/>
+                {/* <IconButton onClick={() => props.removeTransform(props.transformData.id)} className={`trs-remove-element-transform-button`}>
+                    <CloseIcon fontSize="small"/>
+                </IconButton> */}
                 <TransformSelectionDropdownComponent onChange={(value: string) => props.changeTransformType(props.transformData.id, value) }></TransformSelectionDropdownComponent>
                 {options}
             </div>
-
-            <IconButton onClick={() => props.removeTransform(props.transformData.id)} className={`trs-remove-element-transform-button`}>
-                <CloseIcon fontSize="small"/>
-            </IconButton>
         </Card>
     )
 }

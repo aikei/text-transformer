@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme: Theme) => {
         panelHeader: theme.panelHeader,
         grid: {
             height: "85%"
+        },
+        panel: {
+            height: "40vh"
         }
     }
 });
@@ -28,7 +31,7 @@ const TransformsPanelComponentBase: React.FC<TransformsPanelComponentProps> = (p
     const classes = useStyles();
 
     return (
-        <Paper className="trs-transforms-panel trs-panel">
+        <Paper className={`${classes.panel} trs-transforms-panel trs-panel`}>
             <div className={`${classes.panelHeader}`}>
                 <b>Transforms</b>
             </div>
