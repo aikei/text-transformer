@@ -49,7 +49,7 @@ const EncodingDropdownComponent: React.FC<EncodingDropdownProps> = (props: Encod
             <InputLabel className={classes.label} htmlFor="trs-input-dropdown-select">Encoding</InputLabel>
             <NativeSelect 
               onChange={(ev) => props.onChange(ev.target.value)}
-              className={`${classes.encodingDropdown}`} 
+              className={`${classes.encodingDropdown} trs-val-${props.value}`} 
               input={<BootstrapDropdown value={props.value} name="encoding" id="trs-input-dropdown-select" />}>
                 <option value={'utf8'}>Text</option>
                 <option value={'base64'}>Base64</option>

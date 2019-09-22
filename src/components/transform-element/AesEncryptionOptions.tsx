@@ -61,6 +61,7 @@ const AesEncryptionOptionsComponentBase: React.FC<AesEncryptionOptionsComponentP
                 id="trs-aes-options-iv"
                 className={`trs-aes-encrypt-iv-input ${classes.element}`}
                 label="IV"
+                disabled={props.transformData.options.variation === "ecb"}
                 value={props.transformData.options.iv}
                 inputProps={{className: classes.input}}
                 InputLabelProps={{ classes: labelClasses }}

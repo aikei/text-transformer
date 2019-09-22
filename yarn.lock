@@ -9353,6 +9353,11 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
 
+simple-aes@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/simple-aes/-/simple-aes-0.1.1.tgz#24f2b12f4d7a8a1fb97f2ca44b32026c49d11510"
+  integrity sha512-R4Dqz3TlzCyG3qkunLvYWC/gToWvOBqyR9EHIAQQZq2KOnybprjt2zcrWi1DZOyEH9QGLbDl9hqk4TTsxwLIqw==
+
 simple-swizzle@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/simple-swizzle/-/simple-swizzle-0.2.2.tgz#a4da6b635ffcccca33f70d17cb92592de95e557a"

@@ -1,18 +1,6 @@
-import { EncodingType } from "./State";
-
 export type TransformType = "none"|"aes-encrypt"|"aes-decrypt";
 
-export const TransformPreferences: {
-    none: {
-        defaultEncoding: EncodingType
-    },
-    "aes-encrypt": {
-        defaultEncoding: EncodingType
-    },
-    "aes-decrypt": {
-        defaultEncoding: EncodingType
-    }
-} = {
+export const TransformPreferences: any = {
     none: {
         defaultEncoding: "utf8"
     },

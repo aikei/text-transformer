@@ -75,7 +75,7 @@ context("Page Load", () => {
             .should("exist");
     });
 
-    it.only("13.1. Given that the _transformation selection dropdown_ is open and the current element is not the `AES Decrypt` transform element, when the user clicks the `AES Decrypt` option in the dropdown, all old element's field not present in the `AES Decrypt` element should disappear and the element should become the `AES Decrypt` transform element.", () => {
+    it("13.1. Given that the _transformation selection dropdown_ is open and the current element is not the `AES Decrypt` transform element, when the user clicks the `AES Decrypt` option in the dropdown, all old element's field not present in the `AES Decrypt` element should disappear and the element should become the `AES Decrypt` transform element.", () => {
         cy.get(".trs-transforms-panel .trs-transforms-element select")
             .select("aes-decrypt");
         cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-key-input")
@@ -86,7 +86,7 @@ context("Page Load", () => {
             .should("be.visible");
         cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-variation-input")
             .should("exist");
-        cy.get(".trs-error-message-container").should("not.be.visible");
+        cy.get(".trs-error-message-container").should("be.visible");
     });
 
     it("16. When the user clicks the bit selection dropdown in the `AES` transform element, the user should options `128`, `192` and `256`", () => {
@@ -146,6 +146,70 @@ context("Page Load", () => {
         });
     });
 
+    it("24. When the user sets first transform element to AES Encrypt and then adds another transform element to the __transforms__ panel and then sets it to AES Decrypt and enters same options, the text in the __output__ panel text area should be equal to the text in the input area.", async () => {
+        cy.get(".trs-transforms-panel .trs-transforms-element select")
+            .select("aes-encrypt");
+
+        const oldOutput = await new Promise((resolve) => {
+            cy.get(".trs-output-panel .trs-text-area").invoke("val").then(text => {
+                resolve(text);
+            });
+        });
+
+        cy.get(".trs-add-transform-button")
+            .click();
+
+        const key = await new Promise((resolve) => {
+            cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-key-input input").invoke("val").then(text => {
+                resolve(text);
+            })
+        });
+
+        const iv = await new Promise((resolve) => {
+            cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-iv-input input").invoke("val").then(text => {
+                resolve(text);
+            });
+        });    
+
+        cy.get(".trs-transforms-element").its("length").should("equal", 2);
+
+        cy.get(".trs-transforms-element").eq(1).find("select")
+            .select("aes-decrypt");
+        
+        cy.get(".trs-transforms-panel .trs-transforms-element").eq(1)
+            .find(".trs-aes-encrypt-key-input input")
+            .type(key);
+        
+        cy.get(".trs-transforms-panel .trs-transforms-element").eq(1)
+            .find(".trs-aes-encrypt-iv-input input")
+            .type(iv);
+        
+        cy.get(".trs-output-panel .trs-text-area").invoke("val").should("not.have.value", oldOutput);
+    });
+
+    it("25. When the user changes any options, such as key in the `AES-encrypt` transform element, the text in the __output__ panel text area should change too, reflecting the change in text transformation", async () => {
+        cy.get(".trs-transforms-panel .trs-transforms-element select")
+            .select("aes-encrypt");
+
+        const newKey = await new Promise((resolve) => {
+            cy.task("getRandomBytes", 16).then(result => {
+                resolve(result);
+            })
+        });
+
+        const oldOutput = await new Promise((resolve) => {
+            cy.get(".trs-output-panel .trs-text-area").invoke("val").then(text => {
+                resolve(text);
+            });
+        });
+
+        cy.get("#trs-aes-options-key")
+            .clear()
+            .type(newKey);
+
+        cy.get(".trs-output-panel .trs-text-area").should("not.have.value", oldOutput);
+    });
+
     it("27. Given that the `AES encrypt` option is selected in a dropdown, when the user changes the value of bits from 128 to any other value, a new random key should automatically be generated.", () => {
         cy.get(".trs-transforms-panel .trs-transforms-element select")
             .select("aes-encrypt");
@@ -163,9 +227,216 @@ context("Page Load", () => {
             });
     });
 
-    it("28. When the last transform element is selected to be an `AES Encrypt` transform element, the user should see output panel encoding dropdown to show `Base64` value.", () => {
+    it("28. When the last transform element is selected to be an `AES Encrypt` transform element, the user should see output panel encoding dropdown show `Base64` value.", () => {
         cy.get(".trs-transforms-panel .trs-transforms-element select")
             .select("aes-encrypt");
         cy.get(".trs-output-panel .trs-encoding-dropdown select").should("have.value", "base64");
+    });
+
+    it("28.1. When the user changes a transform element to be `AES Decrypt` element, the text in the 'output' panel text area should change to the decrypted text, provided key, iv, mode, key length, and input are all correct", async () => {
+        
+        const plainText = "Hello";
+        
+        cy.get(".trs-transforms-panel .trs-transforms-element #trs-transform-dropdown-select")
+            .select("aes-encrypt");
+
+        cy.get(".trs-transforms-panel .trs-transforms-element #trs-transform-dropdown-select")
+            .select("aes-decrypt");
+
+        const key = await new Promise((resolve) => {
+            cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-key-input input").invoke("val").then(text => {
+                resolve(text);
+            })
+        });
+
+        const iv = await new Promise((resolve) => {
+            cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-iv-input input").invoke("val").then(text => {
+                resolve(text);
+            });
+        });
+
+        const mode = await new Promise((resolve) => {
+            cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-variation-input select").invoke("val").then(text => {
+                resolve(text);
+            });
+        });
+
+        const keyLength = await new Promise((resolve => {
+            cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-bits-input select").invoke("val").then(text => {
+                resolve(text);
+            });
+        }));
+
+        const cipherText = await new Promise((resolve) => {
+            cy.task("aesEncrypt", {
+                plainText,
+                key,
+                keyLength,
+                iv,
+                mode
+            }).then(result => {
+                console.log("aesEncrypt result:", result)
+                resolve(result);
+            });
+        });
+
+        cy.get("#trs-input-dropdown-select").select("base64");
+
+        cy.get(".trs-input-panel textarea")
+            .clear()
+            .type(cipherText);
+
+        cy.get(".trs-output-panel textarea").invoke("val").should("be.equal", plainText);
+    });
+
+    it("29. When the user changes a transform element to be `AES Encrypt` element, the text in the __output__ panel text area should change to the decrypted text, provided key, iv, mode, key length, and input are all correct", async () => {
+
+        cy.get(".trs-transforms-panel .trs-transforms-element select")
+            .select("aes-encrypt");
+            
+        console.log("changed to aes-encrypt");
+
+        cy.get(".trs-aes-encrypt-key-input input").should("exist");
+
+        const key = await new Promise((resolve) => {
+            cy.get(".trs-aes-encrypt-key-input input").invoke("val").then(text => {
+                resolve(text);
+            })
+        });
+
+        console.log("got key:", key);
+
+        cy.get(".trs-aes-encrypt-iv-input input").should("exist");
+        const iv = await new Promise((resolve) => {
+            cy.get(".trs-aes-encrypt-iv-input input").invoke("val").then(text => {
+                resolve(text);
+            });
+        });
+
+        console.log("got iv:", iv);
+
+        cy.get(".trs-input-panel textarea").should("exist");
+
+        const plainText = await new Promise((resolve) => {
+            cy.get(".trs-input-panel textarea").invoke("val").then(text => {
+                resolve(text);
+            })
+        });
+
+        console.log("plainText:", plainText);
+
+        const mode = await new Promise((resolve) => {
+            cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-variation-input select").invoke("val").then(text => {
+                resolve(text);
+            });
+        });
+
+        console.log("mode:", mode);
+
+        const keyLength = await new Promise((resolve => {
+            cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-bits-input select").invoke("val").then(text => {
+                resolve(text);
+            });
+        }));
+
+        console.log("keyLength:", keyLength);
+
+        const cipherText = await new Promise((resolve) => {
+            cy.task("aesEncrypt", {
+                plainText,
+                key,
+                keyLength,
+                iv,
+                mode
+            }).then(result => {
+                resolve(result);
+            });
+        });
+
+        console.log("cipherText:", cipherText);
+
+        cy.get(".trs-output-panel textarea").invoke("val").should("be.equal", cipherText);
+    });
+
+    it("30. When the user changes AES encryption mode from 'ecb' to 'cbc', a new random IV should be seen in the IV input.", () => {
+        cy.get(".trs-transforms-panel .trs-transforms-element select")
+            .select("aes-encrypt");
+
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-iv-input input")
+            .should("not.have.value", "");
+
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-iv-input input")
+            .should("not.be.disabled");
+
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-variation-input select")
+            .select("ecb");
+        
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-iv-input input")
+            .should("have.value", "");
+        
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-iv-input input")
+            .should("be.disabled");
+        
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-variation-input select")
+            .select("cbc");
+
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-iv-input input")
+            .should("not.have.value", "");
+
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-iv-input input")
+            .should("not.be.disabled");
+    });
+
+    it("31. When the user changes AES encryption mode to 'ecb' from 'cbc', the value should be removed from the IV input and INV input should become disabled.", () => {
+        cy.get(".trs-transforms-panel .trs-transforms-element select")
+            .select("aes-encrypt");
+
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-iv-input input")
+            .should("not.have.value", "");
+
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-iv-input input")
+            .should("not.be.disabled")
+
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-variation-input select")
+            .select("ecb");
+        
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-iv-input input")
+            .should("have.value", "");
+        
+        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-iv-input input")
+            .should("be.disabled");
+    });
+
+    it("32. When the user selects `AES Decrypt` as the type of the last transform element, encoding dropdown value of the output panel should change to 'Text'", async () => {
+        cy.get(".trs-transforms-panel .trs-transforms-element select")
+            .select("aes-encrypt");
+
+        const key = await new Promise((resolve) => {
+            cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-key-input input").invoke("val").then(text => {
+                resolve(text);
+            })
+        });
+
+        const iv = await new Promise((resolve) => {
+            cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-iv-input input").invoke("val").then(text => {
+                resolve(text);
+            });
+        });    
+
+        cy.get(`.trs-transforms-panel .trs-add-transform-button`).click();
+        cy.get(".trs-transforms-element").its("length").should("equal", 2);
+
+        cy.get(".trs-transforms-element").eq(1).find("select")
+            .select("aes-decrypt");
+        
+        cy.get(".trs-transforms-panel .trs-transforms-element").eq(1)
+            .find(".trs-aes-encrypt-key-input input")
+            .type(key, { force: true });
+        
+        cy.get(".trs-transforms-panel .trs-transforms-element").eq(1)
+            .find(".trs-aes-encrypt-iv-input input")
+            .type(iv, { force: true });
+
+        cy.get(".trs-output-panel .trs-encoding-dropdown select").should("have.value", "utf8");
     });
 });
