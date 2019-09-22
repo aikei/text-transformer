@@ -146,46 +146,46 @@ context("Page Load", () => {
         });
     });
 
-    it("24. When the user sets first transform element to AES Encrypt and then adds another transform element to the __transforms__ panel and then sets it to AES Decrypt and enters same options, the text in the __output__ panel text area should be equal to the text in the input area.", async () => {
-        cy.get(".trs-transforms-panel .trs-transforms-element select")
-            .select("aes-encrypt");
+    // it("24. When the user sets first transform element to AES Encrypt and then adds another transform element to the __transforms__ panel and then sets it to AES Decrypt and enters same options, the text in the __output__ panel text area should be equal to the text in the input area.", async () => {
+    //     cy.get(".trs-transforms-panel .trs-transforms-element select")
+    //         .select("aes-encrypt");
 
-        const oldOutput = await new Promise((resolve) => {
-            cy.get(".trs-output-panel .trs-text-area").invoke("val").then(text => {
-                resolve(text);
-            });
-        });
+    //     const oldOutput = await new Promise((resolve) => {
+    //         cy.get(".trs-output-panel .trs-text-area").invoke("val").then(text => {
+    //             resolve(text);
+    //         });
+    //     });
 
-        cy.get(".trs-add-transform-button")
-            .click();
+    //     cy.get(".trs-add-transform-button")
+    //         .click();
 
-        const key = await new Promise((resolve) => {
-            cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-key-input input").invoke("val").then(text => {
-                resolve(text);
-            })
-        });
+    //     const key = await new Promise((resolve) => {
+    //         cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-key-input input").invoke("val").then(text => {
+    //             resolve(text);
+    //         })
+    //     });
 
-        const iv = await new Promise((resolve) => {
-            cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-iv-input input").invoke("val").then(text => {
-                resolve(text);
-            });
-        });    
+    //     const iv = await new Promise((resolve) => {
+    //         cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-iv-input input").invoke("val").then(text => {
+    //             resolve(text);
+    //         });
+    //     });    
 
-        cy.get(".trs-transforms-element").its("length").should("equal", 2);
+    //     cy.get(".trs-transforms-element").its("length").should("equal", 2);
 
-        cy.get(".trs-transforms-element").eq(1).find("select")
-            .select("aes-decrypt");
+    //     cy.get(".trs-transforms-element").eq(1).find("select")
+    //         .select("aes-decrypt");
         
-        cy.get(".trs-transforms-panel .trs-transforms-element").eq(1)
-            .find(".trs-aes-encrypt-key-input input")
-            .type(key);
+    //     cy.get(".trs-transforms-panel .trs-transforms-element").eq(1)
+    //         .find(".trs-aes-encrypt-key-input input")
+    //         .type(key);
         
-        cy.get(".trs-transforms-panel .trs-transforms-element").eq(1)
-            .find(".trs-aes-encrypt-iv-input input")
-            .type(iv);
+    //     cy.get(".trs-transforms-panel .trs-transforms-element").eq(1)
+    //         .find(".trs-aes-encrypt-iv-input input")
+    //         .type(iv);
         
-        cy.get(".trs-output-panel .trs-text-area").invoke("val").should("not.have.value", oldOutput);
-    });
+    //     cy.get(".trs-output-panel .trs-text-area").invoke("val").should("not.have.value", oldOutput);
+    // });
 
     it("25. When the user changes any options, such as key in the `AES-encrypt` transform element, the text in the __output__ panel text area should change too, reflecting the change in text transformation", async () => {
         cy.get(".trs-transforms-panel .trs-transforms-element select")
