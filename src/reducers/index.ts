@@ -61,15 +61,13 @@ export function reduce(state: State|undefined, action: TrsAction): State {
                 break;
 
             case Actions.TRANSFORM_ADDED:
-            {
                 newState.transforms.push({
                     type: action.data.type,
                     id: newState.newTransformId++,
                     options: {}
                 });
                 setDefaultOutputEncoding(newState);
-            }
-            break;
+                break;
 
             case Actions.REMOVE_TRANSFORM:
                 newState.transforms = newState.transforms.filter(transformData => transformData.id !== action.data.transformId);
