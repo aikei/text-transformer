@@ -1,18 +1,21 @@
 import React from "react";
 import Paper from '@material-ui/core/Paper';
 import { EncodingDropdownComponent } from "../encoding-dropdown/EncodingDropdownComponent";
-import { makeStyles, Theme } from "@material-ui/core";
+import { makeStyles, Theme, createStyles } from "@material-ui/core";
 import { connect } from "react-redux";
 import { State } from "../../reducers/State";
 import { Actions } from "../../reducers/Actions";
 
 const useStyles = makeStyles((theme: Theme) => {
-    return {
+    return createStyles({
         panelHeader: theme.panelHeader,
         panel: {
-            height: "25vh"
-        }
-    }
+            height: "100%",
+            width: "45%"
+        },
+        commonPanel: theme.commonPanel,
+        commonTextArea: theme.commonTextArea
+    })
 });
 
 interface InputPanelComponentProps {
@@ -26,15 +29,14 @@ const InputPanelComponentBase: React.FC<InputPanelComponentProps> = (props: Inpu
     const classes = useStyles();
 
     return (
-        <Paper className={`${classes.panel} trs-input-panel trs-panel`}>
+        <Paper className={`${classes.panel} ${classes.commonPanel} trs-input-panel trs-panel`}>
             <div className={`${classes.panelHeader}`}>
                 <b>Input</b>
             </div>
             <EncodingDropdownComponent value={props.state.inputEncoding} onChange={(value: string) => props.onEncodingChange(value) }></EncodingDropdownComponent>
-            <textarea className="trs-text-area" 
+            <textarea className={`${classes.commonTextArea} trs-text-area`}
                 value={props.state.input}
                 onChange={(ev) => props.onInputReceived(ev.currentTarget.value)}>
-
             </textarea>
         </Paper>
     );

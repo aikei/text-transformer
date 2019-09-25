@@ -16,7 +16,7 @@ import { AesEncryptionOptionsComponent } from "./AesEncryptionOptions";
 const useStyles = makeStyles((theme: Theme) => 
     createStyles({
         trsElement: {
-            width: "200px",
+            width: "25%",
             height: "100%",
             margin: theme.spacing(1),
             // padding: theme.spacing(1),

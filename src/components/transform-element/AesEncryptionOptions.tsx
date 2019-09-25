@@ -33,10 +33,10 @@ const useStyle = makeStyles({
 });
 
 const useLabelStyle = makeStyles((theme: Theme) => createStyles({
-    root: {
-        position: "absolute",
-        top: "-12px"
-    }
+    // root: {
+    //     position: "absolute",
+    //     top: "-12px"
+    // }
 }))
 
 const AesEncryptionOptionsComponentBase: React.FC<AesEncryptionOptionsComponentProps> = (props: AesEncryptionOptionsComponentProps) => {

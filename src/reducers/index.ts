@@ -7,6 +7,20 @@ import { encode } from "../encoders/encode";
 import { AesEncryptionOptions } from "../encoders/aes-encrypt-encoder";
 import * as crypto from "crypto";
 
+function setDefaultOutputEncoding(state: State): State {
+    let lastTransformIndex = state.transforms.length;
+    do {
+        lastTransformIndex = lastTransformIndex-1;
+    } while(lastTransformIndex >= 0 && state.transforms[lastTransformIndex].type === "none")
+    const lastTransform = state.transforms[lastTransformIndex];
+    if (!lastTransform) {
+        state.outputEncoding = state.inputEncoding;
+    } else {
+        state.outputEncoding = TransformPreferences[lastTransform.type].defaultEncoding;
+    }
+    return state;
+}
+
 export function reduce(state: State|undefined, action: TrsAction): State {
 
     console.log("action received: " + JSON.stringify(action));
@@ -53,23 +67,20 @@ export function reduce(state: State|undefined, action: TrsAction): State {
                     id: newState.newTransformId++,
                     options: {}
                 });
-                const lastTransform = newState.transforms[newState.transforms.length - 1];
-                newState.outputEncoding = TransformPreferences[lastTransform.type].defaultEncoding;
+                setDefaultOutputEncoding(newState);
             }
             break;
 
             case Actions.REMOVE_TRANSFORM:
                 newState.transforms = newState.transforms.filter(transformData => transformData.id !== action.data.transformId);
-                const lastTransform = newState.transforms[newState.transforms.length - 1];
-                newState.outputEncoding = TransformPreferences[lastTransform.type].defaultEncoding;
+                setDefaultOutputEncoding(newState);
                 break;
 
             case Actions.CHANGE_TRANSFORM_TYPE:
                 const transform = newState.transforms.find((value: TransformData) => value.id === action.data.transformId);
                 if (transform) {
                     transform.type = action.data.newType;
-                    const lastTransform = newState.transforms[newState.transforms.length - 1];
-                    newState.outputEncoding = TransformPreferences[lastTransform.type].defaultEncoding;
+                    setDefaultOutputEncoding(newState);
                     switch (transform.type) {
                         case "aes-encrypt":
                             const options: AesEncryptionOptions = transform.options as AesEncryptionOptions;

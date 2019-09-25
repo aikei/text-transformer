@@ -1,17 +1,18 @@
 import React from "react";
 import Paper from '@material-ui/core/Paper';
 import { EncodingDropdownComponent } from "../encoding-dropdown/EncodingDropdownComponent";
-import { makeStyles, Theme } from "@material-ui/core";
+import { makeStyles, Theme, createStyles } from "@material-ui/core";
 import { connect } from "react-redux";
 import { State } from "../../reducers/State";
 import { Actions } from "../../reducers/Actions";
 import { ErrorMessageComponent } from "./ErrorMessageComponent";
 
 const useStyles = makeStyles((theme: Theme) => {
-    return {
+    return createStyles({
         panelHeader: theme.panelHeader,
         panel: {
-            height: "25vh"
+            height: "100%",
+            width: "45%"
         },
         mainContents: {
             width: "100%",
@@ -19,8 +20,10 @@ const useStyles = makeStyles((theme: Theme) => {
             display: "flex",
             flexDirection: "column",
             paddingTop: "0px"
-        }
-    }
+        },
+        commonPanel: theme.commonPanel,
+        commonTextArea: theme.commonTextArea
+    })
 });
 
 interface OutputPanelComponentProps {
@@ -38,7 +41,7 @@ const OutputPanelComponentBase: React.FC<OutputPanelComponentProps> = (props: Ou
                 <b>Output</b>
             </div>
             <EncodingDropdownComponent value={props.state.outputEncoding} onChange={(value: string) => props.onEncodingChange(value)} ></EncodingDropdownComponent>
-            <textarea value={props.state.output} className="trs-text-area"></textarea>
+            <textarea readOnly={true} value={props.state.output} className={`${classes.commonTextArea} trs-text-area`}></textarea>
         </div>)
 
     if (props.state.outputError) {
@@ -46,7 +49,7 @@ const OutputPanelComponentBase: React.FC<OutputPanelComponentProps> = (props: Ou
     }
 
     return (
-        <Paper className={`${classes.panel} trs-transforms-panel trs-panel trs-output-panel`}>
+        <Paper className={`${classes.commonPanel} ${classes.panel} trs-transforms-panel trs-panel trs-output-panel`}>
             {contents}
         </Paper>
     )

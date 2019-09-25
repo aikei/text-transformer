@@ -16,8 +16,9 @@ const useStyles = makeStyles((theme: Theme) => {
             height: "85%"
         },
         panel: {
-            height: "40vh"
-        }
+            height: "50vh"
+        },
+        commonPanel: theme.commonPanel
     }
 });
 
@@ -31,7 +32,7 @@ const TransformsPanelComponentBase: React.FC<TransformsPanelComponentProps> = (p
     const classes = useStyles();
 
     return (
-        <Paper className={`${classes.panel} trs-transforms-panel trs-panel`}>
+        <Paper className={`${classes.panel} ${classes.commonPanel} trs-transforms-panel trs-panel`}>
             <div className={`${classes.panelHeader}`}>
                 <b>Transforms</b>
             </div>

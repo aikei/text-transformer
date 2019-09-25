@@ -3,16 +3,16 @@ import InputBase from '@material-ui/core/InputBase';
 
 const BootstrapDropdown = withStyles((theme: Theme) =>
   createStyles({
-    // root: {
-    //   'label + &': {
-    //     marginTop: theme.spacing(3),
-    //   },
-    // },
     root: {
-      label: {
-        top: "-5px"
-      }
+      'label + &': {
+        marginTop: theme.spacing(3),
+      },
     },
+    // root: {
+    //   label: {
+    //     top: "-5px"
+    //   }
+    // },
     input: {
       borderRadius: 4,
       position: 'relative',
