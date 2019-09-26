@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import { MainScreenComponent } from "./components/main-screen/MainScreenComponent";
 import { Provider } from "react-redux"
 import { createStore } from "redux"
@@ -10,7 +9,12 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
   app: {
-    backgroundColor: "lightgray"
+    backgroundColor: "lightgray",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    alignContent: "spaceBetween",
+    height: "100vh"
   }
 });
 

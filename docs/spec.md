@@ -55,10 +55,11 @@
 ## App Bar
 
 34. When the page loads, the user should see an App Bar (id="trs-app-bar").
-35. When the page loads, the user should see a menu button (id='trs-app-bar-menu-button') in the leftmost part of the App Bar.
-36. When the page loads, the user should see a github icon (id="trs-app-bar-github-button") to the right of the menu button.
-37. When the page loads, the user should see a twitter icon (id="trs-app-bar-twitter-button") to the right of the github icon.
-38. When the user clicks the app bar menu button(id="trs-app-bar-menu-button"), they should see a dropdown with a single option "About" (id="trs-app-bar-about") open.
-39. When the user clicks the "About" option in the topbar menu dropdown (id="trs-app-bar-about"), they should see a popup (id="trs-about-popup") saying: "Text transformer. Author: Andrei Chernikov".
+- 35. When the page loads, the user should see a menu button (id='trs-app-bar-menu-button') in the leftmost part of the App Bar.
+36. When the page loads, the user should see a github icon (id='trs-app-bar-github-button') to the right of the menu button.
+37. When the page loads, the user should see a twitter icon (id='trs-app-bar-twitter-button') to the right of the github icon.
+- 38. When the user clicks the app bar menu button(id="trs-app-bar-menu-button"), they should see a dropdown with a single option "About" (id="trs-app-bar-about") open.
+- 39. When the user clicks the "About" option in the topbar menu dropdown (id="trs-app-bar-about"), they should see a popup (id="trs-about-popup") saying: "Text transformer. Author: Andrei Chernikov".
 40. When the user clicks the github icon (id="trs-app-bar-github-button") the github repo page should open in another tab: https://github.com/aikei/text-transformer.
 41. When the user clicks the twitter icon (id="trs-app-bar-twitter-button", the twitter page should open in another tab: https://twitter.com/aikei_en
+42. When the page loads, the user should see an App Name (id="trs-app-name") in the App Bar.

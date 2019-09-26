@@ -422,9 +422,21 @@ context("Page Load", () => {
             .should("have.value", "base64");
     });
 
-    // it("34. When the page loads, the user should see an App Bar (id='trs-app-bar')", () => {
-    //     cy.get("#trs-app-bar").should("exist");
-    // });
+    it("34. When the page loads, the user should see an App Bar (id='trs-app-bar')", () => {
+        cy.get("#trs-app-bar").should("exist");
+    });
+
+    it("36. When the page loads, the user should see a github icon (id='trs-app-bar-github-button') to the right of the menu button.", () => {
+        cy.get("#trs-app-bar #trs-app-bar-github-button").should("exist");
+    });
+
+    it("37. When the page loads, the user should see a twitter icon (id='trs-app-bar-twitter-button') to the right of the github icon.", () => {
+        cy.get("#trs-app-bar #trs-app-bar-twitter-button").should("exist");
+    });
+
+    it("42. When the page loads, the user should see an App Name (id='trs-app-name') in the App Bar.", () => {
+        cy.get("#trs-app-bar #trs-app-name").should("exist");
+    });
 
     // it("35. When the page loads, the user should see a menu button (id='trs-app-bar-menu-button') in the leftmost part of the App Bar.", () => {
     //     cy.get("#trs-app-bar-menu-button").should("exist");

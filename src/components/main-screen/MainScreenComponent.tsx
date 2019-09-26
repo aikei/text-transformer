@@ -5,7 +5,7 @@ import { ThemeProvider, CSSProperties, makeStyles } from '@material-ui/styles';
 import { createMuiTheme, Theme } from '@material-ui/core/styles';
 import { TransformsPanelComponent } from "../transforms-panel/TransformsPanelComponent";
 import { OutputPanelComponent } from "../output-panel/OutputPanel";
-import { AppBar } from "@material-ui/core";
+import { AppBarComponent } from "../app-bar/AppBarComponent";
 
 
 declare module '@material-ui/core/styles/createMuiTheme' {
@@ -50,7 +50,7 @@ const useStyle = makeStyles((theme: Theme) => {
       justifyContent: "space-between"
     },
     page: {
-      height: "100vh",
+      height: "100%",
       width: "80%",
       display: "flex",
       flexDirection: "column",
@@ -65,7 +65,7 @@ const MainScreenComponent: React.FC = () => {
     
     return (
         <ThemeProvider theme={theme}>
-            <AppBar />
+            <AppBarComponent />
             <div className={`${classes.page}`}>
               <div className={`${classes.topPanelsContainer}`}>
                 <InputPanelComponent></InputPanelComponent>
