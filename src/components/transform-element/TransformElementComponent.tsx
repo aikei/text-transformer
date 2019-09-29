@@ -67,7 +67,9 @@ const TransformElementComponentBase: React.FC<TransformElementComponentProps> = 
                 {/* <IconButton onClick={() => props.removeTransform(props.transformData.id)} className={`trs-remove-element-transform-button`}>
                     <CloseIcon fontSize="small"/>
                 </IconButton> */}
-                <TransformSelectionDropdownComponent onChange={(value: string) => props.changeTransformType(props.transformData.id, value) }></TransformSelectionDropdownComponent>
+                <TransformSelectionDropdownComponent 
+                    value={props.transformData.type}
+                    onChange={(value: string) => props.changeTransformType(props.transformData.id, value) }></TransformSelectionDropdownComponent>
                 {options}
             </div>
         </Card>

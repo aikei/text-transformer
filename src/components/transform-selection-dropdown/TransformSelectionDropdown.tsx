@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface TransformSelectionDropdownProps {
     onChange: (value: string) => void;
+    value: string;
 }
 
 const TransformSelectionDropdownComponent: React.FC<TransformSelectionDropdownProps> = (props: TransformSelectionDropdownProps) => {
@@ -29,6 +30,7 @@ const TransformSelectionDropdownComponent: React.FC<TransformSelectionDropdownPr
         <FormControl className={`${classes.formControl}`}>
             {/* <InputLabel htmlFor="trs-transform-dropdown-select">Transform</InputLabel> */}
             <NativeSelect 
+                value={props.value}
                 onChange={(event) => props.onChange(event.target.value) }
                 className={`trs-transform-selection-dropdown ${classes.transformSelectionDropdown}`} 
                 input={<BootstrapDropdown name="transform-selection" id="trs-transform-dropdown-select" />}>

@@ -15,8 +15,8 @@ interface AesEncryptionOptionsComponentProps {
 
 const useStyle = makeStyles({
     input: {
-        paddingTop: "4.5px",
-        paddingBottom: "4.5px"
+        paddingTop: "8px",
+        paddingBottom: "8px"
     },
     formControl: {
         width: "100%"
@@ -24,19 +24,26 @@ const useStyle = makeStyles({
     select: {
         width: "100%"
     },
+    topElement: {
+        marginTop: "3%",
+        marginBottom: "3%",
+    },
+    bottomElement: {
+        marginTop: "1%",
+        marginBottom: "1%",
+    },
     element: {
-        margin: "3%",
+        marginLeft: "2%",
+        marginRight: "2%",
         width: "94%",
-        marginTop: "3px",
-        marginBottom: "3px",
     }
 });
 
 const useLabelStyle = makeStyles((theme: Theme) => createStyles({
-    // root: {
-    //     position: "absolute",
-    //     top: "-12px"
-    // }
+    root: {
+        position: "absolute",
+        top: "-8px"
+    }
 }))
 
 const AesEncryptionOptionsComponentBase: React.FC<AesEncryptionOptionsComponentProps> = (props: AesEncryptionOptionsComponentProps) => {
@@ -48,7 +55,7 @@ const AesEncryptionOptionsComponentBase: React.FC<AesEncryptionOptionsComponentP
         <div>
             <TextField
                 id="trs-aes-options-key"
-                className={`trs-aes-encrypt-key-input ${classes.element}`}
+                className={`trs-aes-encrypt-key-input ${classes.element} ${classes.topElement}`}
                 label="Key"
                 value={props.transformData.options.key}
                 inputProps={{className: classes.input}}
@@ -59,7 +66,7 @@ const AesEncryptionOptionsComponentBase: React.FC<AesEncryptionOptionsComponentP
             />
             <TextField
                 id="trs-aes-options-iv"
-                className={`trs-aes-encrypt-iv-input ${classes.element}`}
+                className={`trs-aes-encrypt-iv-input ${classes.element} ${classes.topElement}`}
                 label="IV"
                 disabled={props.transformData.options.variation === "ecb"}
                 value={props.transformData.options.iv}
@@ -72,7 +79,7 @@ const AesEncryptionOptionsComponentBase: React.FC<AesEncryptionOptionsComponentP
                 margin="none"
                 variant="outlined"
             />
-            <FormControl margin="none" className={`${classes.formControl} ${classes.element} trs-aes-encrypt-bits-input`}>
+            <FormControl margin="none" className={`${classes.formControl} ${classes.element} ${classes.bottomElement} trs-aes-encrypt-bits-input`}>
                 <InputLabel htmlFor="trs-aes-options-bits">Key Length</InputLabel>
                 <NativeSelect className={`${classes.select}`}
                     value={props.transformData.options.bits}
@@ -84,12 +91,13 @@ const AesEncryptionOptionsComponentBase: React.FC<AesEncryptionOptionsComponentP
                 </NativeSelect>
             </FormControl>
 
-            <FormControl margin="none" className={`${classes.formControl} ${classes.element} trs-aes-encrypt-variation-input`}>
+            <FormControl margin="none" className={`${classes.formControl} ${classes.element} ${classes.bottomElement} trs-aes-encrypt-variation-input`}>
                 <InputLabel htmlFor="trs-aes-options-variation">Mode</InputLabel>
                 <NativeSelect 
                     onChange={(ev) => props.changeOptionsProperty(props.transformData.id, "variation", ev.target.value)}
                     value={props.transformData.options.variation}
-                    className={`${classes.select}`} input={<BootstrapDropdown name="bots-select" id="trs-aes-options-variation" />}>
+                    className={`${classes.select}`} input={
+                        <BootstrapDropdown name="bots-select" id="trs-aes-options-variation" />}>
                     
                     <option value={'cbc'}>cbc</option>
                     <option value={'ecb'}>ecb</option>

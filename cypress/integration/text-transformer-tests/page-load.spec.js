@@ -76,20 +76,21 @@ context("Page Load", () => {
     });
 
     it("13. Given that the _transformation selection dropdown_ is open and the current element is not the `AES Encrypt` transform element, when the user clicks the `AES Encrypt` option in the dropdown, all old element's field not present in the `AES Encrypt` element should disappear and the element should become the `AES Encrypt` transform element.", () => {
-        cy.get(".trs-transforms-panel .trs-transforms-element select")
+        cy.get(`.trs-transforms-panel .trs-add-transform-button`).click();
+        cy.get(".trs-transforms-panel .trs-transforms-element").eq(1).find("select")
             .select("aes-encrypt");
-        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-key-input")
+        cy.get(".trs-transforms-panel .trs-transforms-element").eq(1).find(".trs-aes-encrypt-key-input")
             .should("be.visible");
-        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-iv-input")
+        cy.get(".trs-transforms-panel .trs-transforms-element").eq(1).find(".trs-aes-encrypt-iv-input")
             .should("be.visible");
-        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-bits-input")
+        cy.get(".trs-transforms-panel .trs-transforms-element").eq(1).find(".trs-aes-encrypt-bits-input")
             .should("be.visible");
-        cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-variation-input")
+        cy.get(".trs-transforms-panel .trs-transforms-element").eq(1).find(".trs-aes-encrypt-variation-input")
             .should("exist");
     });
 
     it("13.1. Given that the _transformation selection dropdown_ is open and the current element is not the `AES Decrypt` transform element, when the user clicks the `AES Decrypt` option in the dropdown, all old element's field not present in the `AES Decrypt` element should disappear and the element should become the `AES Decrypt` transform element.", () => {
-        cy.get(".trs-transforms-panel .trs-transforms-element select")
+        cy.get(".trs-transforms-panel .trs-transforms-element select#trs-transform-dropdown-select")
             .select("aes-decrypt");
         cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-key-input")
             .should("be.visible");
@@ -103,8 +104,6 @@ context("Page Load", () => {
     });
 
     it("16. When the user clicks the bit selection dropdown in the `AES` transform element, the user should options `128`, `192` and `256`", () => {
-        cy.get(".trs-transforms-panel .trs-transforms-element select")
-            .select("aes-encrypt");
         cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-bits-input option[value='128']")
             .should("exist");
         cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-bits-input option[value='192']")
@@ -114,33 +113,30 @@ context("Page Load", () => {
     });
 
     it("18. When the user clicks the block mode selection dropdown in the `AES` transform element, the user should see options `ecb` and `cbc`", () => {
-        cy.get(".trs-transforms-panel .trs-transforms-element select")
-            .select("aes-encrypt");
-
         cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-variation-input option[value='ecb']")
             .should("exist");
         cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-variation-input option[value='cbc']")
             .should("exist");
     });
 
-    it("26. When the page loads, user should see the same text in the output text area as in the input text area", () => {
+    it("26. When user selects the only transform element to be the 'None' element, the user should see the same text in the output text area as in the input text area", () => {
+        cy.get(".trs-transforms-panel .trs-transforms-element select#trs-transform-dropdown-select")
+            .select("none");
         cy.get(".trs-input-panel .trs-text-area").should("have.text", "Lorem ipsum dolor sit amet");
         cy.get(".trs-output-panel .trs-text-area").should("have.text", "Lorem ipsum dolor sit amet");
     });
 
-    it("19. When an element is selected to be an AES transform element in the _transformation selection dropdown_, the user should see key input with a random key in base64 format", () => {        
-        cy.get(".trs-transforms-panel .trs-transforms-element select")
-            .select("aes-encrypt");
+    it("19. When an element is selected to be an AES encrypt element in the _transformation selection dropdown_, the user should see key input with a random key in base64 format", () => {        
         cy.get("#trs-aes-options-key").should("not.have.value", "");
     });
 
     it("20. When an element is selected to be an AES transform element in the _transformation selection dropdown_, the user should see iv input with a random value in base64 format", () => {        
-        cy.get(".trs-transforms-panel .trs-transforms-element select")
-            .select("aes-encrypt");
         cy.get("#trs-aes-options-iv").should("not.have.value", "");
     });
 
     it("21. When the user changes text in the __input__ text area, the user should immediately see the result of transforming this text using the transforms from the __transforms panel__", () => {
+        cy.get(".trs-transforms-panel .trs-transforms-element select#trs-transform-dropdown-select")
+            .select("none");
         cy.get(".trs-input-panel .trs-text-area").type(", consectetur adipiscing elit");
         cy.get(".trs-output-panel .trs-text-area").should("have.text", "Lorem ipsum dolor sit amet, consectetur adipiscing elit");
     });
@@ -149,19 +145,17 @@ context("Page Load", () => {
         
         cy.get(".trs-output-panel .trs-text-area").invoke("val").then(originalText => {
             cy.get(".trs-output-panel .trs-encoding-dropdown select")
-                .select("base64")
+                .select("hex")
             cy.get(".trs-output-panel .trs-text-area").invoke("val").then(text2 => {
                 expect(originalText).not.to.equal(text2);
                 cy.get(".trs-output-panel .trs-encoding-dropdown select")
-                    .select("hex");
+                    .select("utf8");
                 cy.get(".trs-output-panel .trs-text-area").invoke("val").should("not.equal", text2);
             });
         });
     });
 
     it("23. When the user removes any transform element from the __transforms__ panel, the text in the __output__ panel text area should change too, reflecting the change in text transformation.", () => {
-        cy.get(".trs-transforms-panel .trs-transforms-element select")
-            .select("aes-encrypt");
         cy.get(".trs-add-transform-button")
             .click();
         cy.get(".trs-transforms-panel .trs-transforms-element")
@@ -179,8 +173,6 @@ context("Page Load", () => {
     });
 
     it("24. When the user sets first transform element to AES Encrypt and then adds another transform element to the __transforms__ panel and then sets it to AES Decrypt and enters same options, the text in the __output__ panel text area should be equal to the text in the input area.", () => {
-        cy.get(".trs-transforms-panel .trs-transforms-element select")
-            .select("aes-encrypt");
 
         cy.get(".trs-output-panel .trs-text-area").invoke("val").then(text => {
             const oldOutput = text;
@@ -230,9 +222,6 @@ context("Page Load", () => {
     });
 
     it("27. Given that the `AES encrypt` option is selected in a dropdown, when the user changes the value of bits from 128 to any other value, a new random key should automatically be generated.", () => {
-        cy.get(".trs-transforms-panel .trs-transforms-element select")
-            .select("aes-encrypt");
-        
         let oldKey = "";
 
         cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-key-input input")
@@ -247,8 +236,6 @@ context("Page Load", () => {
     });
 
     it("28. When the last transform element is selected to be an `AES Encrypt` transform element, the user should see output panel encoding dropdown show `Base64` value.", () => {
-        cy.get(".trs-transforms-panel .trs-transforms-element select")
-            .select("aes-encrypt");
         cy.get(".trs-output-panel .trs-encoding-dropdown select").should("have.value", "base64");
     });
 
@@ -331,8 +318,6 @@ context("Page Load", () => {
     });
 
     it("30. When the user changes AES encryption mode from 'ecb' to 'cbc', a new random IV should be seen in the IV input.", () => {
-        cy.get(".trs-transforms-panel .trs-transforms-element select")
-            .select("aes-encrypt");
 
         cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-iv-input input")
             .should("not.have.value", "");
@@ -360,8 +345,6 @@ context("Page Load", () => {
     });
 
     it("31. When the user changes AES encryption mode to 'ecb' from 'cbc', the value should be removed from the IV input and INV input should become disabled.", () => {
-        cy.get(".trs-transforms-panel .trs-transforms-element select")
-            .select("aes-encrypt");
 
         cy.get(".trs-transforms-panel .trs-transforms-element .trs-aes-encrypt-iv-input input")
             .should("not.have.value", "");
@@ -408,8 +391,6 @@ context("Page Load", () => {
     });
 
     it("33. Given that the first transform element's type is set to 'AES Encrypt', when the user clicks the add transform button, a new 'none' transform should appear and output encoding should still have value 'base64'", () => {
-        cy.get(".trs-transforms-panel .trs-transforms-element select")
-            .select("aes-encrypt");
 
         cy.get(".trs-output-panel .trs-encoding-dropdown select")
             .should("have.value", "base64");
